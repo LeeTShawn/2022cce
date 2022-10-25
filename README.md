@@ -134,3 +134,109 @@ int main()
     n = n / 10;
 }
 ```
+## week08-1 使用for迴圈, 去試2...n-1的數(因為1和n本身,一定會整除)。用一個變數 int bad=0 表示迴圈之前沒有壞掉。如果有整除, 就壞掉、不再是質數。迴圈後,看bad的值, 就知道是不是經過嚴格檢查的質數。
+```cpp
+#include <stdio.h>
+int main()
+{   /// 口訣:倒過來想
+    int n;
+    scanf("%d",&n);///試試看n是不是質數
+    int bad=0;
+    for(int i=2;i<=n;i++)///只能被 1 還有 n 本身整除
+    {
+        if(n%i==0)bad=1;
+    }
+    if (bad==0) printf("%d 是質數",n);
+    else printf("%d 不好, 不是質數", n);
+}
+```
+## week08-2 先用一個大迴圈, 印出全部的數, 了解2...a 的範圍的迴圈。接下來, 利用 week08-1.cpp 程式碼的核心, 來判斷 n 是不是質數。
+```cpp
+#include <stdio.h>
+int main()
+{
+    int a;
+    scanf("%d", &a);
+
+    for(int n=2; n<=a; n++){
+
+        int bad=0;
+        for(int i=2; i<n; i++){
+            if(n%i==0)bad=1;
+        }
+        if(bad==0)printf("%d", n);
+    }
+}
+```
+## week08-3 輸入5個數字, 把它們加起來。迴圈前面 int sum=0; 迴圈中間修改 sum += n; 迴圈後面 把 sum 印出來。
+```cpp
+#include <stdio.h>
+int main()
+{
+    printf("請輸入5個數字(要加起來): ");
+
+    int n;
+    int sum=0;
+    for(int i=0; i<5; i++){
+        scanf("%d", &n);
+        sum += n;
+    }
+    printf("總合是:%d", sum);
+}
+```
+## week08-4 (1)善用迴圈「建立鷹架(樓層i)」, (2)再把星星搞定, (3) 再把空格搞定, (4) 再拆掉鷹架.
+```cpp
+#include <stdio.h>
+int main()
+{
+	int n;
+	scanf("%d",&n);
+
+	for(int i=1; i<=n; i++){///鷹架
+	    ///空格數+樓層是n, 空格=n-1
+		for(int k=1; k<=n-i; k++)printf(" ");
+        ///樓層與星星數量一樣
+		for(int k=1; k<=i; k++)printf("*");
+		printf("\n");
+	}
+}
+```
+## week08-5 口訣是,正方形。先能用星星印出正方形,接下來if(判斷)來決定什麼時候改印空格, 就要再導一下 第i樓有n-i個空格, 所以 if(k=n-i)時,都印空格,便完成了。
+```cpp
+#include <stdio.h>
+int main()
+{
+    int n;
+    scanf("%d", &n);
+
+    for(int i=1; i<=n; i++){
+        for(int k=1; k<=n; k++){
+            printf("*");
+        }
+        printf("\n");
+    }
+}
+```
+## week08-6 先用前面2個程式作業來引選, 有正方形, 配合 if(判斷)來決定誰印空格、誰印星星後, 再把前一個程式, 逐一把 for迴圈的前面初始變數、中間判斷、後面收尾, 變成 while迴圈的樣子。翻譯完就成功了。
+```cpp
+#include <stdio.h>
+int main()
+{
+    int n;
+    scanf("%d", &n);
+
+    int i=1;
+    while(i<=n){
+
+        int k=1;
+        while(k<=n){
+
+            if(k<=n-i)printf(" ");
+            else printf("*");
+            k++;
+        }
+        printf("\n");
+        i++;
+    }
+}
+```
